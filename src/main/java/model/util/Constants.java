@@ -1,21 +1,6 @@
 package model.util;
 
-import view.InputOutputHandler;
-
 public class Constants {
-
-    // --------------------------------------------------------------------------------------------- \\
-    // ----------------------------------------- Instances ----------------------------------------- \\
-
-    /**
-     * Instance of the I/O operation class
-     */
-    public static final InputOutputHandler INPUT_OUTPUT_HANDLER = new InputOutputHandler();
-
-    // ----------------------------------------- Instances ----------------------------------------- \\
-    // --------------------------------------------------------------------------------------------- \\
-
-
 
     // -------------------------------------------------------------------------------------------- \\
     // ----------------------------------------- Messages ----------------------------------------- \\
@@ -29,6 +14,10 @@ public class Constants {
                     Constants.COMMAND_HELP + " : get this help message\n" +
                     Constants.COMMAND_GET_ALL_PATHS + " : prints every possible path path from MrX\n" +
                     Constants.COMMAND_GET_POSSIBLE_LOCATIONS + " : prints every possible location of MrX";
+
+    public static final String INVALID_START_ARGS_MESSAGE = "Invalid arguments! " +
+            "Arguments must match '<LocationMrX> <locationPlayer1;locationPlayer2;...>'." +
+            "The location of MrX is mandatory while adding additional players is optional.";
 
     // ----------------------------------------- Messages ----------------------------------------- \\
     // -------------------------------------------------------------------------------------------- \\

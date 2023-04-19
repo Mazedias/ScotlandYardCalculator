@@ -1,7 +1,6 @@
 package model.annotation;
 
 import org.reflections.Reflections;
-import model.util.Constants;
 import view.InputOutputHandler;
 
 import java.lang.annotation.Annotation;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 
 /**
  * This class contains methods to find classes with specific annotations
- * @author Mazedias
+ * @author Mathias
  */
 public class AnnotationFinder {
 

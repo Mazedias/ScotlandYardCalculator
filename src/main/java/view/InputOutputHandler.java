@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * I/O Class
- * @author Mathoas
+ * @author Mathias
  */
 public class InputOutputHandler {
 
