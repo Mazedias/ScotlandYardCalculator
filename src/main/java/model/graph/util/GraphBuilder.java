@@ -1,6 +1,5 @@
 package model.graph.util;
 
-
 import model.game.transportation.TransportationType;
 import model.util.exceptions.InvalidNode;
 

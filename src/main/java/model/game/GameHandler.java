@@ -10,20 +10,24 @@ import java.util.List;
 public class GameHandler {
 
     private final List<Player> players;
-    private final MrX mrX;
+    private MrX mrX;
     private int idCounter;
 
 
-    public GameHandler(Node mrXLocation) {
-        this.mrX = new MrX(0, mrXLocation);
-        this.idCounter = 1;
-
+    public GameHandler() {
         this.players = new ArrayList<>();
     }
 
     public void addPlayer(Node location) {
         this.players.add(new Player(this.idCounter, location));
         this.idCounter++;
+    }
+
+    public void addMrX(Node location) {
+        if (this.mrX != null) {
+            this.mrX = new MrX(0, location);
+            this.idCounter++;
+        }
     }
 
 
