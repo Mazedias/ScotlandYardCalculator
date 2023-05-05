@@ -1,10 +1,15 @@
 package controller;
 
+import controller.commands.CommandHandler;
 import model.game.GameHandler;
 import model.graph.GraphHandler;
 import model.util.Constants;
+import model.util.abstracts.AbstractCommand;
 import model.util.exceptions.InvalidNode;
+import model.util.exceptions.ToMuchMatches;
 import view.InputOutputHandler;
+
+import java.util.Arrays;
 
 /**
  * Contains logic and controls program flow
@@ -14,10 +19,12 @@ public class ProgramHandler {
 
     private final GameHandler gameHandler;
     private final GraphHandler graphHandler;
+    private final CommandHandler commandHandler;
     private boolean running;
 
     public ProgramHandler(String[] args) {
         this.gameHandler = new GameHandler();
+        this.commandHandler = new CommandHandler();
         this.graphHandler = GraphHandler.getINSTANCE();
 
         this.running = true;
@@ -29,9 +36,35 @@ public class ProgramHandler {
         // Print welcome message
         InputOutputHandler.printMessage(Constants.WELCOME_MESSAGE);
 
+        // Program loop
         while (this.running) {
-            // Program loop
+            // Get command
+            String input = InputOutputHandler.collectInput();
+            String[] splitInput = input.split(" ");
+            AbstractCommand command;
+            try {
+                command = this.commandHandler.getCommand(splitInput[0]);
+            } catch (ToMuchMatches ex) {
+                ex.printStackTrace();
+                InputOutputHandler.printError(Constants.INVALID_REGEX_MATCHES);
+                continue;
+            }
 
+
+            // Execute command
+            String executeMessage;
+            if (splitInput.length > 1) {
+                executeMessage = command.execute(
+                        Arrays.copyOfRange(splitInput, 1, splitInput.length-1)
+                );
+            } else {
+                executeMessage = command.execute();
+            }
+
+            // Print output
+            if (!(executeMessage.isEmpty() || executeMessage.isBlank())) {
+                System.out.println(executeMessage);
+            }
         }
 
     }
@@ -48,18 +81,15 @@ public class ProgramHandler {
             return;
         }
 
-        if (args.length < 2) { // Only a MrX is added
+        if (args.length < 2) { // Only add MrX
             try {
                 this.gameHandler.addMrX(graphHandler.findNode(Integer.parseInt(args[0])));
             } catch (InvalidNode | NumberFormatException ex) {
                 ex.printStackTrace();
                 InputOutputHandler.printError(Constants.INVALID_START_ARGS_MESSAGE);
                 this.exit();
-                return;
             }
-        }
-
-        if (args.length == 2) {
+        } else if (args.length == 2) { // Add MrX and players
             String[] players = args[1].split(";");
 
             for (String player : players) {
@@ -72,7 +102,9 @@ public class ProgramHandler {
                     return;
                 }
             }
-
+        } else { // Invalid start arguments
+            InputOutputHandler.printError(Constants.INVALID_START_ARGS_MESSAGE);
+            this.exit();
         }
     }
 

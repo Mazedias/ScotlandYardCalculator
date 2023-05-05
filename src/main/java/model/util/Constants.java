@@ -19,6 +19,8 @@ public class Constants {
             "Arguments must match '<LocationMrX> <locationPlayer1;locationPlayer2;...>'." +
             "The location of MrX is mandatory while adding additional players is optional.";
 
+    public static final String INVALID_REGEX_MATCHES = "Invalid amount of matches elements.";
+
     // ----------------------------------------- Messages ----------------------------------------- \\
     // -------------------------------------------------------------------------------------------- \\
 
